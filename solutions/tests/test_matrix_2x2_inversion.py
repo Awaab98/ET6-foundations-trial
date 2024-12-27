@@ -8,6 +8,7 @@ Test categories:
     - Edge test cases: test the function with extreme inputs.
     - Defensive tests: test the function with invalid inputs.
 
+
 Created on 2024-12-26
 Author: Awaab98
 """
@@ -23,37 +24,30 @@ class TestMatrix2x2Inversion(unittest.TestCase):
     def test_matrix_with_integer_elements(self):
         """It should return the inverse of the input matrix, handling integers."""
         self.assertEqual(
-            matrix_2x2_inversion([[1, 2], [3, 4]]),
-            [[-2.0, 1.0], [1.5, -0.5]],
+            matrix_2x2_inversion([[1, 2], [3, 4]]), [[-2.0, 1.0], [1.5, -0.5]]
         )
 
     def test_matrix_with_float_elements(self):
         """It should return the inverse of the input matrix, handling floats."""
         self.assertEqual(
-            matrix_2x2_inversion([[1.0, 2.0], [3.0, 4.0]]),
-            [[-2.0, 1.0], [1.5, -0.5]],
+            matrix_2x2_inversion([[1.0, 2.0], [3.0, 4.0]]), [[-2.0, 1.0], [1.5, -0.5]]
         )
 
     def test_matrix_with_mixed_elements(self):
-        """It should return the inverse of the input matrix, handling mixed types."""
+        """It should return the inverse of the input matrix, handling mixed-types elements."""
         self.assertEqual(
-            matrix_2x2_inversion([[1, 2.0], [3, 4]]),
-            [[-2.0, 1.0], [1.5, -0.5]],
+            matrix_2x2_inversion([[1, 2.0], [3, 4]]), [[-2.0, 1.0], [1.5, -0.5]]
         )
 
     def test_matrix_with_negative_elements(self):
         """It should return the inverse of the input matrix, handling negative elements."""
         self.assertEqual(
-            matrix_2x2_inversion([[-1, -2], [-3, -4]]),
-            [[2.0, -1.0], [-1.5, 0.5]],
+            matrix_2x2_inversion([[-1, -2], [-3, -4]]), [[2.0, -1.0], [-1.5, 0.5]]
         )
 
     def test_identity_matrix(self):
         """It should return the identity matrix."""
-        self.assertEqual(
-            matrix_2x2_inversion([[1, 0], [0, 1]]),
-            [[1, 0], [0, 1]],
-        )
+        self.assertEqual(matrix_2x2_inversion([[1, 0], [0, 1]]), [[1, 0], [0, 1]])
 
     def test_symmetric_matrix(self):
         """It should return the inverse."""
@@ -83,12 +77,12 @@ class TestMatrix2x2Inversion(unittest.TestCase):
             matrix_2x2_inversion("1, 2, 3, 4")
 
     def test_non_numeric_elements(self):
-        """It should raise a TypeError because the matrix contains non-numeric elements."""
+        """It should raise a TypeError because the input matrix contains non-numeric elements."""
         with self.assertRaises(TypeError):
             matrix_2x2_inversion([[1, 2], [3, "4"]])
 
     def test_non_2x2_matrix(self):
-        """It should raise an AssertionError because the input is not a 2x2 matrix."""
+        """It should raise an AssertionError because the input matrix is not a 2x2 matrix."""
         with self.assertRaises(AssertionError):
             matrix_2x2_inversion([[1, 2, 3], [4, 5, 6]])
 
