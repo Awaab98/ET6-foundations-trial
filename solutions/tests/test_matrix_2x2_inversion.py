@@ -18,7 +18,7 @@ from ..matrix_2x2_inversion import matrix_2x2_inversion
 
 
 class TestMatrix2x2Inversion(unittest.TestCase):
-    """Tests suite for the matrix_2x2_inversion function."""
+    """Tests cases suite for the matrix_2x2_inversion function."""
 
     # Standard test cases
     def test_matrix_with_integer_elements(self):
