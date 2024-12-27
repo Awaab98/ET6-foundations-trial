@@ -1,68 +1,53 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
-A module for calculating the inverse of a matrix that has two rows
-and two columns.
+A module for testing and validating the inversion of a 2x2 matrix.
 
-Module contents:
-    - matrix_2x2_inversion: returns the inverse of a 2x2 matrix.
+This module provides a function that computes the inverse of a given
+2x2 matrix. The function raises appropriate errors for invalid inputs
+or singular matrices.
 
 Created on 2024-12-26
 Author: Awaab98
 """
 
-def matrix_2x2_inversion(matrix: list[list[float]]) -> list[list[float]]:
+
+def matrix_2x2_inversion(matrix):
     """
-    Calculates the inverse of a 2x2 matrix.
+    Compute the inverse of a 2x2 matrix.
 
-    The function calculates the inverse of a 2x2 matrix. The input matrix
-    must be an invertible 2x2 matrix (i.e., the determinant is not zero).
-
-    Parameters:
-        matrix: list, a list of lists representing a 2x2 matrix in which 
-            every element is either int or float.
+    Args:
+        matrix (list[list[float]]): A 2x2 matrix to be inverted.
 
     Returns:
-        list: a list of lists representing the inverse of the input matrix.
+        list[list[float]]: The inverse of the input matrix.
 
     Raises:
-        TypeError: if the input matrix is not a list of lists.
-        TypeError: if one of the elements of the input matrix is not int or float.
-        AssertionError: if the input matrix is not a 2x2 matrix.
-        ValueError: if the determinant of input matrix is zero.
-
-    Examples:
-        >>> matrix_2x2_inversion([[1, 2], [3, 4]])
-        [[-2.0, 1.0], [1.5, -0.5]]
-        >>> matrix_2x2_inversion([[1.0, 2.0], [3.0, 4.0]])
-        [[-2.0, 1.0], [1.5, -0.5]]
-        >>> matrix_2x2_inversion([[1, 2.0], [3, 4]])
-        [[-2.0, 1.0], [1.5, -0.5]]
+        ValueError: If the matrix determinant is zero (non-invertible).
+        TypeError: If the matrix contains non-numeric elements.
+        AssertionError: If the matrix is not 2x2 in shape.
     """
-    # Check if the input matrix is a list of lists
-    if not isinstance(matrix, list) or not all(isinstance(row, list) for row in matrix):
-        raise TypeError("Input matrix must be a list of lists.")
+    assert len(matrix) == 2 and all(len(row) == 2 for row in matrix), (
+        "Input must be a 2x2 matrix."
+    )
 
-    # Check if the elements of the input matrix are either int or float
-    if not all(isinstance(element, (int, float)) for row in matrix for element in row):
-        raise TypeError("Elements of input matrix must be either int or float.")
+    a, b = matrix[0]
+    c, d = matrix[1]
 
-    # Check if the input matrix is a 2x2 matrix
-    if len(matrix) != 2 or not all(len(row) == 2 for row in matrix):
-        raise AssertionError("Input matrix must be a 2x2 matrix.")
-
-    # Calculate the determinant
-    determinant = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
-
-    # If determinant is 0, the matrix is not invertible
+    # Compute determinant
+    determinant = a * d - b * c
     if determinant == 0:
-        raise ValueError("Matrix is not invertible because determinant is zero.")
+        raise ValueError("Matrix is not invertible (determinant is zero).")
 
-    # Calculate the inverse using the 2x2 matrix formula
+    # Validate numeric elements
+    if not all(
+        isinstance(element, (int, float)) for row in matrix for element in row
+    ):
+        raise TypeError("Matrix elements must be numeric.")
+
+    # Compute and return the inverse
     inverse = [
-        [matrix[1][1] / determinant, -matrix[0][1] / determinant],
-        [-matrix[1][0] / determinant, matrix[0][0] / determinant],
+        [d / determinant, -b / determinant],
+        [-c / determinant, a / determinant],
     ]
-
     return inverse
